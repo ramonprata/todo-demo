@@ -1,0 +1,142 @@
+{
+  "reactNativeComponent": {
+    "prefix": "tscomp",
+    "body": [
+      "import React from 'react';",
+      "import { View } from 'react-native';",
+      "",
+      "interface ${1:ComponentName}Props {}",
+      "",
+      "const ${1:ComponentName}: React.FC<${1:ComponentName}Props> = () => {",
+      "  return <View />;",
+      "};",
+      "",
+      "export default ${1:ComponentName};",
+      ""
+    ]
+  },
+  
+  "background": {
+    "prefix": "b-g",
+    "body": [
+      "background-color: red;",
+    ]
+  },
+
+  "nativeStyledComponent": {
+    "prefix": "csscomp",
+    "body": [
+      "import styled from 'styled-components/native';",
+      "",
+      "interface ${1:ComponentName}Props {",
+        " ",
+      "}",
+      "",
+      "const ${1:ComponentName} = styled.${2:Component}<${1:ComponentName}Props>`",
+      "  // some css style",
+      "`;",
+      "",
+      "export default ${1:ComponentName};",
+      ""
+    ]
+  },
+  
+  "detox e2e Test": {
+    "prefix": "e2etest",
+    "body": [
+      "/* eslint-env detox/detox, mocha */",
+      "",
+      "describe('Example', () => {",
+      "  beforeAll(async () => {",
+      "    await device.launchApp({ newInstance: true });",
+      "  });",
+      "",
+      "  beforeEach(async () => {",
+      "    await device.reloadReactNative();",
+      "  });",
+      "",
+      "  it('should...', async () => {",
+      "    await expect(element(by.id('${0:testID}'))).toBeVisible();",
+      "  });",
+      "});",
+      ""
+    ],
+    "description": ""
+  },
+ 
+  "create manager": {
+    "prefix": "cmanager",
+    "body": [
+      "/**",
+      " * Use this to apply business rules on data input/output",
+      " */",
+      "import BaseManager from '@shared/base/api/BaseManager';",
+      "import ${1:SomeRepository} from './${1:SomeRepository}';",
+      "",
+      "export default class ${0:ManagerName} extends BaseManager {",
+      "  repo: ${1:SomeRepository};",
+      "",
+      "  constructor() {",
+      "    super();",
+      "    this.repo = new ${1:SomeRepository}();",
+      "  }",
+      "}"
+    ],
+    "description": "To create a new manager"
+  },
+
+  "create repository": {
+    "prefix": "crepo",
+    "body": [
+      "import ${1:SomeModel} from '@shared/models/';",
+      "import APIBFF from '@shared/base/api/APIBFF';",
+      "import APIAUTH from '@shared/base/api/APIAUTH';",
+      "",
+      "export default class ${0:RepositoryName} extends ${1:SomeModel} {",
+      "  public apiBff;",
+      "",
+      "  public apiAuth;",
+      "",
+      "  constructor() {",
+      "    super();",
+      "    this.apiBff = new APIBFF();",
+      "    this.apiAuth = new APIAUTH();",
+      "  }",
+      "}",
+      ""
+    ],
+    "description": "To create a new repository"
+  },
+
+  "componentTest": {
+    "prefix": "testcomp",
+    "body": [
+      "import React from 'react';",
+      "import expect from 'expect';",
+      "import '@shared/utils/mock-react-native-third-lib';",
+      "import { render, waitFor } from '@shared/utils/test-utils';",
+      "import ${0:MyComponent} from '../views/${0:MyComponent}';",
+      "describe('Tests ${0:MyComponent}', () => {",
+        "   it('should ', () => {});",
+      "});",
+    ]
+  },
+  "unitTest": {
+    "prefix": "utest",
+    "body": [
+      "import expect from 'expect';",
+      "import '../../../shared/utils/mock-react-native-third-lib';",
+      "describe('Tests ${0:File}', () => {",
+        "   it('should ', () => {});",
+      "});",
+    ]
+  },
+  "afunc": {
+    "prefix": "afunc",
+    "body": [
+      "export const ${0:FunctionName} = (param) => {",
+        "",
+      "};"
+    ]
+  }
+}
