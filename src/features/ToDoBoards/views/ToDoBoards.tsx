@@ -26,7 +26,7 @@ const ToDoBoards: React.FC<ToDoBoardsProps> = () => {
   );
 
   const onAddNewBoard = () => {
-    navigation.navigate(ERouteNames.TODO_TASK_FORM);
+    navigation.navigate(ERouteNames.TODO_BOARD_FORM);
   };
 
   const { container, subHeaderContainer, subTitle } = styles;

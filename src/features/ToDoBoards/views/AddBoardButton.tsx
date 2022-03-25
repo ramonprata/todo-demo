@@ -20,7 +20,6 @@ const AddBoardButton: React.FC<AddBoardButtonProps> = ({ buttonTitle }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'yellow',
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',

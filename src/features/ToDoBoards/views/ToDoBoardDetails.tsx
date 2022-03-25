@@ -18,12 +18,12 @@ const ToDoBoardDetails: React.FC<ToDoBoardDetailsProps> = () => {
         }}
         resizeMode="cover"
         style={styles.image}>
-        {/* <Card title="ToDoBoard">
+        <Card title="ToDoBoard">
           <Card variantColor="white">
             <Text>content</Text>
           </Card>
-        </Card> */}
-        <AddBoardButton buttonTitle="Add list" />
+        </Card>
+        {/* <AddBoardButton buttonTitle="Add list" /> */}
       </ImageBackground>
     </View>
   );
