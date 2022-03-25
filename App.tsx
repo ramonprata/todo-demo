@@ -12,7 +12,7 @@ import React from 'react';
 import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import TodoStack from './src/features/ToDo/views/ToDoStack';
+import TodoStack from './src/navigation/todoStack/ToDoStack';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';

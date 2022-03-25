@@ -11,16 +11,18 @@
       "  return <View />;",
       "};",
       "",
+      "const styles = StyleSheet.create({",
+      "container: {},",
+      "});",
+      "",
       "export default ${1:ComponentName};",
       ""
     ]
   },
-  
+
   "background": {
     "prefix": "b-g",
-    "body": [
-      "background-color: red;",
-    ]
+    "body": ["background-color: red;"]
   },
 
   "nativeStyledComponent": {
@@ -29,7 +31,7 @@
       "import styled from 'styled-components/native';",
       "",
       "interface ${1:ComponentName}Props {",
-        " ",
+      " ",
       "}",
       "",
       "const ${1:ComponentName} = styled.${2:Component}<${1:ComponentName}Props>`",
@@ -40,7 +42,7 @@
       ""
     ]
   },
-  
+
   "detox e2e Test": {
     "prefix": "e2etest",
     "body": [
@@ -63,7 +65,7 @@
     ],
     "description": ""
   },
- 
+
   "create manager": {
     "prefix": "cmanager",
     "body": [
@@ -117,8 +119,8 @@
       "import { render, waitFor } from '@shared/utils/test-utils';",
       "import ${0:MyComponent} from '../views/${0:MyComponent}';",
       "describe('Tests ${0:MyComponent}', () => {",
-        "   it('should ', () => {});",
-      "});",
+      "   it('should ', () => {});",
+      "});"
     ]
   },
   "unitTest": {
@@ -127,16 +129,12 @@
       "import expect from 'expect';",
       "import '../../../shared/utils/mock-react-native-third-lib';",
       "describe('Tests ${0:File}', () => {",
-        "   it('should ', () => {});",
-      "});",
+      "   it('should ', () => {});",
+      "});"
     ]
   },
   "afunc": {
     "prefix": "afunc",
-    "body": [
-      "export const ${0:FunctionName} = (param) => {",
-        "",
-      "};"
-    ]
+    "body": ["export const ${0:FunctionName} = (param) => {", "", "};"]
   }
 }

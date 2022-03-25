@@ -1,27 +1,21 @@
 import React from 'react';
-import { theme } from '../../../shared';
+import { Pressable } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
-  NativeStackHeaderProps,
 } from '@react-navigation/native-stack';
 
-import { NavigationProp } from '@react-navigation/native';
-
+import { theme } from '../../shared';
 import {
   ERouteNames,
   TRouteNames,
   TToDoStackParamList,
-} from '../../../shared/types';
+} from '../../shared/types';
+import { DefaultIcon, HeaderTitle } from '../../shared/components';
 
-import ToDoBoards from './ToDoBoards';
-import ToDoBoardDetails from './ToDoBoardDetails';
-import BoardForm from '../../ToDoForms/views/BoardForm';
-import ColumForm from '../../ToDoForms/views/ColumForm';
-import TaskForm from '../../ToDoForms/views/TaskForm';
-import { DefaultIcon } from '../../../shared/components';
-import { Pressable } from 'react-native';
-import HeaderTitle from './HeaderTitle';
+import { ToDoBoards, ToDoBoardDetails } from '../../features/ToDoBoards';
+import { BoardForm, ColumForm, TaskForm } from '../../features/ToDoForms';
 
 const Stack = createNativeStackNavigator<TToDoStackParamList>();
 

@@ -2,8 +2,7 @@ import React from 'react';
 
 import Icon from 'react-native-vector-icons/Feather';
 import { theme } from '../../theme';
-
-type TPaletteColors = keyof typeof theme.palette;
+import { TPaletteColors } from '../../types/TPaletteColors';
 
 interface DefaultIconProps {
   name: string;

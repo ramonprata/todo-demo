@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { theme } from '../../../shared';
+import { theme } from '../../theme';
 
 interface HeaderTitleProps {
   title: string;
@@ -22,7 +22,7 @@ const HeaderTitle: React.FC<HeaderTitleProps> = ({
 const getStyles = (hasIcon: boolean) =>
   StyleSheet.create({
     container: {
-      marginLeft: hasIcon ? 16 : 0,
+      marginLeft: hasIcon ? 32 : 0,
     },
     title: {
       fontWeight: 'bold',
