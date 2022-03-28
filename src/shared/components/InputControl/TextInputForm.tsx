@@ -13,7 +13,7 @@ const TextInputForm: React.FC<TextInputFormProps> = ({
   label,
   value,
   onChangeText,
-  placeholder = '',
+  placeholder = 'useless placeholder',
 }) => {
   return (
     <View style={styles.container}>
@@ -22,7 +22,7 @@ const TextInputForm: React.FC<TextInputFormProps> = ({
         style={styles.input}
         onChangeText={onChangeText}
         value={value}
-        placeholder="useless placeholder"
+        placeholder={placeholder}
       />
     </View>
   );

@@ -38,7 +38,11 @@ const ToDoBoards: React.FC<ToDoBoardsProps> = () => {
 
       <ScrollView contentContainerStyle={{ paddingVertical: 16 }}>
         {boards.map(b => (
-          <ToDoBoardItem board={b} onSelectBoard={() => onSelectBoard(b)} />
+          <ToDoBoardItem
+            key={b.title}
+            board={b}
+            onSelectBoard={() => onSelectBoard(b)}
+          />
         ))}
       </ScrollView>
 
