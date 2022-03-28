@@ -15,7 +15,7 @@ const Card: React.FC<CardProps> = ({
   children,
   title,
   variantColor = 'light',
-  noPadding,
+  noPadding = false,
 }) => {
   const styles = getStyles(variantColor, noPadding);
   return (

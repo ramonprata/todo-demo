@@ -7,7 +7,9 @@ export type TToDoStackParamList = {
   [ERouteNames.TO_DO_BOARDS]: undefined;
   [ERouteNames.TODO_BOARD_FORM]: undefined;
   [ERouteNames.TODO_COLUMN_FORM]: undefined;
-  [ERouteNames.TODO_TASK_FORM]: undefined;
+  [ERouteNames.TODO_TASK_FORM]: {
+    conlumnName: string;
+  };
   [ERouteNames.TODO_BOARD_DETAILS]: {
     headerTitle: string;
     board: IBoard;
