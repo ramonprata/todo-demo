@@ -8,14 +8,16 @@ const { palette } = theme;
 interface CardProps {
   title?: string;
   variantColor?: TPaletteColors;
+  noPadding?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({
   children,
   title,
   variantColor = 'light',
+  noPadding,
 }) => {
-  const styles = getStyles(variantColor);
+  const styles = getStyles(variantColor, noPadding);
   return (
     <View style={styles.container}>
       {title && (
@@ -28,11 +30,11 @@ const Card: React.FC<CardProps> = ({
   );
 };
 
-const getStyles = (variantColor: TPaletteColors) =>
+const getStyles = (variantColor: TPaletteColors, noPadding: boolean) =>
   StyleSheet.create({
     container: {
       backgroundColor: palette[variantColor],
-      padding: 16,
+      padding: noPadding ? 0 : 16,
       elevation: 2,
       borderRadius: 6,
     },
