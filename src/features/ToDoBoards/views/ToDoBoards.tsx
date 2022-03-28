@@ -1,16 +1,28 @@
 import React, { useCallback } from 'react';
 import { Text, View, StyleSheet, Button, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { theme } from '../../../shared';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { theme, usePromise } from '../../../shared';
 import { ERouteNames, IBoard, TUseNavigation } from '../../../shared/types';
 import ToDoBoardItem from './ToDoBoardItem';
 import { FloatButton } from '../../../shared/components';
-import { boards } from '../toDoUtils';
+import ToDoBoardManager from '../services/ToDoBoardManager';
+
+const Manager = new ToDoBoardManager();
 
 interface ToDoBoardsProps {}
 
 const ToDoBoards: React.FC<ToDoBoardsProps> = () => {
   const navigation = useNavigation<TUseNavigation>();
+  const isFocused = useIsFocused();
+
+  const loadBoards = useCallback(() => {
+    if (isFocused) {
+      return Manager.getBoards();
+    }
+    return null;
+  }, [isFocused]);
+
+  const { data, ...promiseStatus } = usePromise(loadBoards);
 
   const onSelectBoard = useCallback(
     (board: IBoard) => {
@@ -37,13 +49,14 @@ const ToDoBoards: React.FC<ToDoBoardsProps> = () => {
       </View>
 
       <ScrollView contentContainerStyle={{ paddingVertical: 16 }}>
-        {boards.map(b => (
-          <ToDoBoardItem
-            key={b.title}
-            board={b}
-            onSelectBoard={() => onSelectBoard(b)}
-          />
-        ))}
+        {data &&
+          data.map(b => (
+            <ToDoBoardItem
+              key={b.title}
+              board={b}
+              onSelectBoard={() => onSelectBoard(b)}
+            />
+          ))}
       </ScrollView>
 
       <FloatButton onPress={onAddNewBoard} />
