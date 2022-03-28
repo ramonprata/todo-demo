@@ -5,7 +5,7 @@ import { theme } from '../../../shared';
 import { ERouteNames, IBoard, TUseNavigation } from '../../../shared/types';
 import ToDoBoardItem from './ToDoBoardItem';
 import { FloatButton } from '../../../shared/components';
-import { boards } from './toDoUtils';
+import { boards } from '../toDoUtils';
 
 interface ToDoBoardsProps {}
 
