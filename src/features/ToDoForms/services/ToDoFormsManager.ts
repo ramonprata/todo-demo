@@ -2,12 +2,34 @@
  * Use this to apply business rules on data input/output
  */
 
+import { IColumn, ITask } from '../../../shared/types';
 import ToDoFormsRepository from './ToDoFormsRepository';
 
-export default class ManagerName {
+export default class ToDoFormsManager {
   repo: ToDoFormsRepository;
 
   constructor() {
     this.repo = new ToDoFormsRepository();
+  }
+
+  async addColumn(column: IColumn) {
+    try {
+      let newColumns;
+      const columns = await this.repo.fetchColumns();
+      if (columns) {
+        newColumns = {
+          ...columns,
+          [column.title]: column,
+        };
+      } else {
+        newColumns = {
+          [column.title]: column,
+        };
+      }
+
+      await this.repo.updateColumns(newColumns);
+    } catch (error) {
+      throw new Error('Failed on creating column');
+    }
   }
 }

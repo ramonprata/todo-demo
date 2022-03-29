@@ -6,7 +6,9 @@ import { ERouteNames } from '../TRouteNames';
 export type TToDoStackParamList = {
   [ERouteNames.TO_DO_BOARDS]: undefined;
   [ERouteNames.TODO_BOARD_FORM]: undefined;
-  [ERouteNames.TODO_COLUMN_FORM]: undefined;
+  [ERouteNames.TODO_COLUMN_FORM]: {
+    boardName: string;
+  };
   [ERouteNames.TODO_TASK_FORM]: {
     conlumnName: string;
   };

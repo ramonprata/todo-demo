@@ -1,23 +1,44 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, StyleSheet, ImageBackground, ScrollView } from 'react-native';
-import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
+import {
+  useRoute,
+  RouteProp,
+  useNavigation,
+  useIsFocused,
+} from '@react-navigation/native';
 import {
   ERouteNames,
-  IColumn,
   ITask,
   TToDoStackParamList,
   TUseNavigation,
 } from '../../../shared/types';
 import { Card } from '../../../shared/components';
 import AddBoardButton from './AddBoardButton';
-import { DeviceFeatures } from '../../../shared';
+import { DeviceFeatures, usePromise } from '../../../shared';
 import ToDoList from '../../ToDoList/ToDoList';
+import ToDoBoardManager from '../services/ToDoBoardManager';
+
+const Manager = new ToDoBoardManager();
 
 interface ToDoBoardDetailsProps {}
 
 const ToDoBoardDetails: React.FC<ToDoBoardDetailsProps> = () => {
   const route = useRoute<RouteProp<Partial<TToDoStackParamList>>>();
   const navigation = useNavigation<TUseNavigation>();
+  const isFocused = useIsFocused();
+
+  const selectedBoard = (
+    route?.params as TToDoStackParamList['ToDoBoardDetails']
+  )?.board;
+
+  const loadColumns = useCallback(() => {
+    if (isFocused) {
+      return Manager.getColumns(selectedBoard.title);
+    }
+    return null;
+  }, [isFocused]);
+
+  const {} = usePromise();
 
   const [columns, setColumns] = useState({
     'To Do': [
@@ -46,13 +67,18 @@ const ToDoBoardDetails: React.FC<ToDoBoardDetailsProps> = () => {
   });
 
   const handleCreateColumn = () => {
-    navigation.navigate(ERouteNames.TODO_COLUMN_FORM);
+    navigation.navigate({
+      name: ERouteNames.TODO_COLUMN_FORM,
+      params: {
+        boardName: selectedBoard.title,
+      },
+    });
   };
 
   const renderColumn = (item: [string, ITask[]]) => {
     const [title, tasks] = item;
     return (
-      <View style={styles.columnContainer}>
+      <View style={styles.columnContainer} key={title}>
         <Card title={title}>
           <ToDoList conlumnName={title} items={tasks} />
         </Card>
@@ -64,8 +90,7 @@ const ToDoBoardDetails: React.FC<ToDoBoardDetailsProps> = () => {
     <View style={styles.container}>
       <ImageBackground
         source={{
-          uri: (route?.params as TToDoStackParamList['ToDoBoardDetails'])?.board
-            ?.imagePath,
+          uri: selectedBoard?.imagePath,
         }}
         resizeMode="cover"
         style={styles.image}>

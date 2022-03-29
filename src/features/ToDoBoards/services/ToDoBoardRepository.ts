@@ -1,6 +1,9 @@
-import { IBoard } from '../../../shared/types';
+import {
+  STORAGE_COLUMNS_KEY,
+  STORAGE_BOARDS_KEY,
+} from '../../../shared/constants/storageKeys';
+import { IBoard, IColumn } from '../../../shared/types';
 import * as assynStorage from '../../../shared/utils/asyncStorage';
-import { STORAGE_BOARDS_KEY } from '../toDoUtils';
 
 export default class ToDoBoardRepository {
   updateBoards(boards: IBoard[]) {
@@ -9,5 +12,11 @@ export default class ToDoBoardRepository {
 
   fetchBoards() {
     return assynStorage.getObjectData<IBoard[]>(STORAGE_BOARDS_KEY);
+  }
+
+  fetchColumns() {
+    return assynStorage.getObjectData<{ [key: string]: IColumn }>(
+      STORAGE_COLUMNS_KEY,
+    );
   }
 }

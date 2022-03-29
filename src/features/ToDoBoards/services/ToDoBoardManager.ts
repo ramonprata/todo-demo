@@ -21,6 +21,15 @@ export default class ToDoBoardManager {
     }
   }
 
+  async getColumns(boardName: string) {
+    try {
+      const resp = await this.repo.fetchBoards();
+      return resp;
+    } catch (error) {
+      throw new Error('Error on getBoards');
+    }
+  }
+
   async createNewBoard(board: IBoard) {
     try {
       const boards = await this.repo.fetchBoards();
