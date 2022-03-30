@@ -8,12 +8,13 @@ import {
 } from '@react-navigation/native';
 import {
   ERouteNames,
+  IColumn,
   ITask,
   TToDoStackParamList,
   TUseNavigation,
 } from '../../../shared/types';
 import { Card } from '../../../shared/components';
-import AddBoardButton from './AddBoardButton';
+import AddBoardButton from './AddColumnButton';
 import { DeviceFeatures, usePromise } from '../../../shared';
 import ToDoList from '../../ToDoList/ToDoList';
 import ToDoBoardManager from '../services/ToDoBoardManager';
@@ -38,33 +39,7 @@ const ToDoBoardDetails: React.FC<ToDoBoardDetailsProps> = () => {
     return null;
   }, [isFocused]);
 
-  const {} = usePromise();
-
-  const [columns, setColumns] = useState({
-    'To Do': [
-      {
-        id: Math.random().toString(),
-        description: 'Some task',
-        status: 'Todo',
-      },
-      {
-        id: Math.random().toString(),
-        description: 'Some task',
-        status: 'Todo',
-      },
-      {
-        id: Math.random().toString(),
-        description: 'Some task',
-        status: 'Todo',
-      },
-      {
-        id: Math.random().toString(),
-        description: 'Some task',
-        status: 'Todo',
-      },
-    ],
-    Doing: [],
-  });
+  const { data: columns, ...promiseStatus } = usePromise(loadColumns);
 
   const handleCreateColumn = () => {
     navigation.navigate({
@@ -75,8 +50,8 @@ const ToDoBoardDetails: React.FC<ToDoBoardDetailsProps> = () => {
     });
   };
 
-  const renderColumn = (item: [string, ITask[]]) => {
-    const [title, tasks] = item;
+  const renderColumn = (item: IColumn) => {
+    const { title, tasks } = item;
     return (
       <View style={styles.columnContainer} key={title}>
         <Card title={title}>
@@ -85,6 +60,8 @@ const ToDoBoardDetails: React.FC<ToDoBoardDetailsProps> = () => {
       </View>
     );
   };
+
+  const shoudRender = promiseStatus.done && columns;
 
   return (
     <View style={styles.container}>
@@ -95,7 +72,7 @@ const ToDoBoardDetails: React.FC<ToDoBoardDetailsProps> = () => {
         resizeMode="cover"
         style={styles.image}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {Object.entries(columns).map(c => renderColumn(c))}
+          {shoudRender && columns.map(c => renderColumn(c))}
           <View style={styles.columnContainer}>
             <AddBoardButton buttonTitle="Add list" onAdd={handleCreateColumn} />
           </View>
@@ -115,7 +92,7 @@ const styles = StyleSheet.create({
   },
 
   columnContainer: {
-    width: DeviceFeatures.width * 0.8,
+    width: DeviceFeatures.width * 0.9,
     marginHorizontal: 12,
     height: '100%',
   },

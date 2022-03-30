@@ -3,6 +3,7 @@
  */
 
 import { IBoard } from '../../../shared/types';
+import { getColumnsByBoardName } from '../toDoBoardsUtils';
 import ToDoBoardRepository from './ToDoBoardRepository';
 
 export default class ToDoBoardManager {
@@ -23,8 +24,11 @@ export default class ToDoBoardManager {
 
   async getColumns(boardName: string) {
     try {
-      const resp = await this.repo.fetchBoards();
-      return resp;
+      const columns = await this.repo.fetchColumns();
+      if (columns) {
+        return getColumnsByBoardName(columns, boardName);
+      }
+      return [];
     } catch (error) {
       throw new Error('Error on getBoards');
     }

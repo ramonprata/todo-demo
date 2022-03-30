@@ -17,14 +17,10 @@ export default class ToDoFormsManager {
       let newColumns;
       const columns = await this.repo.fetchColumns();
       if (columns) {
-        newColumns = {
-          ...columns,
-          [column.title]: column,
-        };
+        columns.push(column);
+        newColumns = columns;
       } else {
-        newColumns = {
-          [column.title]: column,
-        };
+        newColumns = [column];
       }
 
       await this.repo.updateColumns(newColumns);

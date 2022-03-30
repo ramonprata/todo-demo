@@ -3,12 +3,12 @@ import { Text, TouchableOpacity, StyleSheet, View } from 'react-native';
 import { theme } from '../../../shared';
 import { Card } from '../../../shared/components';
 
-interface AddBoardButtonProps {
+interface AddColumnButtonProps {
   buttonTitle: string;
   onAdd: () => void;
 }
 
-const AddBoardButton: React.FC<AddBoardButtonProps> = ({
+const AddColumnButton: React.FC<AddColumnButtonProps> = ({
   buttonTitle,
   onAdd,
 }) => {
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddBoardButton;
+export default AddColumnButton;

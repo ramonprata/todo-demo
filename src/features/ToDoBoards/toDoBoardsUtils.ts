@@ -1,15 +1,9 @@
 import { IColumn } from '../../shared/types';
 
 export const getColumnsByBoardName = (
-  columns: { [key: string]: IColumn },
+  columns: IColumn[],
   boardName: string,
-): { [key: string]: IColumn } => {
-  const result = Object.values(columns);
-  // .reduce((previous, current: IColumn) => {
-  //   return {
-  //     ...previous,
-  //     [current.title]: { ...current },
-  //   };
-  // }, {});
-  return result;
+): IColumn[] => {
+  const columnsOfBoard = columns.filter(c => c.boardName === boardName);
+  return columnsOfBoard;
 };

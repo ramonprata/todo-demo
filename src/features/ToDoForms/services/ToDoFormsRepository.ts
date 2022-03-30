@@ -6,17 +6,15 @@ import {
 } from '../../../shared/constants/storageKeys';
 
 export default class ToDoFormRepository {
-  updateColumns(columns: { [key: string]: IColumn }) {
-    return assynStorage.storeObjectData<{ [key: string]: IColumn }>(
+  updateColumns(columns: IColumn[]) {
+    return assynStorage.storeObjectData<IColumn[]>(
       STORAGE_COLUMNS_KEY,
       columns,
     );
   }
 
   fetchColumns() {
-    return assynStorage.getObjectData<{ [key: string]: IColumn }>(
-      STORAGE_COLUMNS_KEY,
-    );
+    return assynStorage.getObjectData<IColumn[]>(STORAGE_COLUMNS_KEY);
   }
 
   updateTasks(boards: ITask[]) {

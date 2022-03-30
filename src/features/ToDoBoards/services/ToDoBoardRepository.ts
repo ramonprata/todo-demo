@@ -15,8 +15,6 @@ export default class ToDoBoardRepository {
   }
 
   fetchColumns() {
-    return assynStorage.getObjectData<{ [key: string]: IColumn }>(
-      STORAGE_COLUMNS_KEY,
-    );
+    return assynStorage.getObjectData<IColumn[]>(STORAGE_COLUMNS_KEY);
   }
 }

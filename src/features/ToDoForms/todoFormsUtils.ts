@@ -1,12 +1,9 @@
-import { getRandomIndex, mockImages } from '../../shared';
 import { IBoard, IColumn } from '../../shared/types';
 
 export const mountNewBoard = (boarName: string): IBoard => {
-  const randomIndex = getRandomIndex(mockImages.length);
   return {
     title: boarName,
-    imagePath: mockImages[randomIndex],
-    columns: [],
+    imagePath: 'https://picsum.photos/600/900',
   };
 };
 
