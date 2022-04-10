@@ -9,10 +9,16 @@
  */
 
 import React from 'react';
-import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
+import 'react-native-gesture-handler';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  useColorScheme,
+} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import TodoStack from './src/navigation/todoStack/ToDoStack';
+import DrawerNavigation from '../navigation/drawerNavigation/DrawerNavigation';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -24,9 +30,15 @@ const App = () => {
   return (
     <NavigationContainer>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <TodoStack />
+      <SafeAreaView style={styles.container}>
+        <DrawerNavigation />
+      </SafeAreaView>
     </NavigationContainer>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 export default App;
