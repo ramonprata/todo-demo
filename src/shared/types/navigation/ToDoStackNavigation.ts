@@ -5,6 +5,7 @@ import { ERouteNames } from '../TRouteNames';
 
 export type TToDoStackParamList = {
   [ERouteNames.SIDE_MENU]: undefined;
+  [ERouteNames.LONG_LIST]: undefined;
   [ERouteNames.TO_DO_STACK]: { title?: string };
   [ERouteNames.TO_DO_BOARDS]: undefined;
   [ERouteNames.TODO_BOARD_FORM]: undefined;

@@ -4,3 +4,8 @@ export { default as HeaderTitle } from './HeaderTitle/HeaderTitle';
 export { default as TouchableButton } from './TouchableButton/TouchableButton';
 export { default as TextInputForm } from './InputControl/TextInputForm';
 export { default as Card } from './Card/Card';
+export { default as OrientedComponent } from './OrientedComponent/OrientedComponent';
+export { default as OrientedView } from './OrientedView/OrientedView';
+export { default as Avatar } from './Avatar/Avatar';
+export { default as CardAvatar } from './CardAvatar/CardAvatar';
+export { default as SearchInput } from './SearchInput/SearchInput';

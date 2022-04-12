@@ -5,6 +5,7 @@ import ToDoStack from '../todoStack/ToDoStack';
 import SideMenu from './SideMenu';
 import AppHeader from '../../app/AppHeader';
 import BarCode from '../../features/BarCode/BarCode';
+import LongList from '../../features/LongList/views/LongList';
 const Drawer = createDrawerNavigator();
 
 interface DrawerNavigationProps {}
@@ -27,6 +28,11 @@ const DrawerNavigation: React.FC<DrawerNavigationProps> = () => {
         name={ERouteNames.BAR_CODE}
         component={BarCode}
         initialParams={{ title: 'Barcode' }}
+      />
+      <Drawer.Screen
+        name={ERouteNames.LONG_LIST}
+        component={LongList}
+        initialParams={{ title: 'Long list' }}
       />
     </Drawer.Navigator>
   );

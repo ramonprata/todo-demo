@@ -23,8 +23,12 @@ const SideMenu: React.FC<SideMenuProps> = ({ closeDrawer }) => {
     });
   };
 
-  const goBardCode = () => {
+  const goToBardCode = () => {
     navigation.navigate(ERouteNames.BAR_CODE);
+  };
+
+  const goToLongList = () => {
+    navigation.navigate(ERouteNames.LONG_LIST);
   };
 
   return (
@@ -40,9 +44,14 @@ const SideMenu: React.FC<SideMenuProps> = ({ closeDrawer }) => {
           <Text>POC - Todo app</Text>
         </View>
       </Pressable>
-      <Pressable onPress={goBardCode}>
+      <Pressable onPress={goToBardCode}>
         <View style={styles.itemContainer}>
           <Text>POC - Bardcode</Text>
+        </View>
+      </Pressable>
+      <Pressable onPress={goToLongList}>
+        <View style={styles.itemContainer}>
+          <Text>POC - Long List</Text>
         </View>
       </Pressable>
     </View>
