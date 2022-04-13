@@ -12,6 +12,7 @@ import ListItem from './ListItem';
 import { ICharacter } from '../../../shared/types/ICharacter';
 import { SearchInput } from '../../../shared/components';
 import { filterCharacters } from '../longListUtils';
+import { useVoiceRecognition } from '../../../shared/hooks';
 
 const Manager = new LongListManager();
 
@@ -31,6 +32,8 @@ const LongList: React.FC<LongListProps> = () => {
 
   const { data } = usePromise(loadChacters);
 
+  useVoiceRecognition();
+
   const filteredItems = useMemo(() => {
     if (data?.length) {
       return filterCharacters(data as ICharacter[], searchText);
@@ -49,6 +52,7 @@ const LongList: React.FC<LongListProps> = () => {
           setSearchText(t);
         }}
         value={searchText}
+        icon="mic"
       />
       <FlatList
         data={filteredItems}

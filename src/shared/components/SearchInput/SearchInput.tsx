@@ -1,16 +1,22 @@
 import React from 'react';
 import { View, TextInput, StyleSheet, TextProps } from 'react-native';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 import { theme } from '../../theme';
+import DefaultIcon from '../DefaultIcon/DefaultIcon';
 
-interface TextInputProps extends Partial<TextProps> {
+interface SearchInputProps extends Partial<TextProps> {
   value: string;
   onChangeText: (text: string) => void;
+  icon?: string;
 }
 
-const SearchInput: React.FC<TextInputProps> = ({
+const SearchInput: React.FC<SearchInputProps> = ({
   value,
   onChangeText,
+  icon,
   ...textProps
 }) => {
   return (
@@ -23,6 +29,7 @@ const SearchInput: React.FC<TextInputProps> = ({
         placeholderTextColor={theme.palette.white}
         {...textProps}
       />
+      {icon && <DefaultIcon name={icon} size={24} color="light" />}
     </View>
   );
 };
@@ -31,6 +38,7 @@ const styles = StyleSheet.create({
   container: {
     padding: hp('2%'),
     elevation: 2,
+    flexDirection: 'row',
   },
   input: {
     padding: hp('2%'),
@@ -38,6 +46,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#20232a',
     color: theme.palette.white,
     fontSize: 18,
+  },
+  iconWrapper: {
+    width: wp('10%'),
+    height: wp('10%'),
+    borderRadius: wp('5%'),
+    backgroundColor: 'violet',
   },
 });
 
