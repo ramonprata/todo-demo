@@ -4,9 +4,9 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import { useIsFocused } from '@react-navigation/native';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { usePromise } from '../../../shared';
+import { theme, usePromise } from '../../../shared';
 import LongListManager from '../services/LongListManager';
 import ListItem from './ListItem';
 import { ICharacter } from '../../../shared/types/ICharacter';
@@ -32,14 +32,14 @@ const LongList: React.FC<LongListProps> = () => {
 
   const { data } = usePromise(loadChacters);
 
-  useVoiceRecognition();
+  const { startRecognizing, stopRecognizing, results } = useVoiceRecognition();
 
   const filteredItems = useMemo(() => {
     if (data?.length) {
-      return filterCharacters(data as ICharacter[], searchText);
+      return filterCharacters(data as ICharacter[], results);
     }
     return [];
-  }, [searchText, data]);
+  }, [results, data]);
 
   const renderItem = ({ item }: { item: ICharacter }) => (
     <ListItem character={item} />
@@ -52,8 +52,11 @@ const LongList: React.FC<LongListProps> = () => {
           setSearchText(t);
         }}
         value={searchText}
-        icon="mic"
+        useVoiceSearch
+        onPressInMic={startRecognizing}
+        onPressOutMic={stopRecognizing}
       />
+      <Text style={styles.textResults}>Words: {results}</Text>
       <FlatList
         data={filteredItems}
         renderItem={renderItem}
@@ -73,6 +76,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#16181d',
+  },
+  textResults: {
+    padding: 16,
+    color: theme.palette.white,
   },
 });
 

@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   content: {
     borderWidth: 1,
-    backgroundColor: '#20232a',
+    backgroundColor: theme.palette.dark100,
     borderRadius: wp('4%'),
     height: '100%',
     width: '100%',

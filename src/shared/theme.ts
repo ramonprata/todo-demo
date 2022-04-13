@@ -7,5 +7,6 @@ export const theme = {
     secondary: '#093546',
     light: '#efefef',
     dark: '#555555',
+    dark100: '#20232a',
   },
 };

@@ -12,7 +12,7 @@ export const objectMatchText = <T extends object>(obj: T, searchText = '') => {
   const normalizedSearchText = searchText
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '');
-  return normalizedString
-    .toUpperCase()
-    .includes(normalizedSearchText.toUpperCase());
+  return normalizedSearchText
+    .split(' ')
+    .some(word => normalizedString.toUpperCase().includes(word.toUpperCase()));
 };
