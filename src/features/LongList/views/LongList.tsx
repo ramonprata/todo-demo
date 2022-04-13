@@ -11,7 +11,7 @@ import LongListManager from '../services/LongListManager';
 import ListItem from './ListItem';
 import { ICharacter } from '../../../shared/types/ICharacter';
 import { SearchInput } from '../../../shared/components';
-import { filterListItems } from '../longListUtils';
+import { filterCharacters } from '../longListUtils';
 
 const Manager = new LongListManager();
 
@@ -19,7 +19,9 @@ interface LongListProps {}
 
 const LongList: React.FC<LongListProps> = () => {
   const [searchText, setSearchText] = useState('');
+
   const isFocused = useIsFocused();
+
   const loadChacters = useCallback(() => {
     if (isFocused) {
       return Manager.getCharacters();
@@ -31,7 +33,7 @@ const LongList: React.FC<LongListProps> = () => {
 
   const filteredItems = useMemo(() => {
     if (data?.length) {
-      return filterListItems(data as ICharacter[], searchText);
+      return filterCharacters(data as ICharacter[], searchText);
     }
     return [];
   }, [searchText, data]);
