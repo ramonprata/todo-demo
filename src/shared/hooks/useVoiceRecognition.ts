@@ -17,27 +17,27 @@ export const useVoiceRecognition = () => {
       }
 
       if (permissionGranted) {
-        function onSpeechStart() {
+        const onSpeechStart = () => {
           // console.log('onSpeechStart: ', e);
-        }
-        function onSpeechEnd() {
+        };
+        const onSpeechEnd = () => {
           // console.log('onSpeechEnd: ', e);
-        }
-        function onSpeechError() {
+        };
+        const onSpeechError = () => {
           // console.log('onSpeechError: ', e);
-        }
-        function onSpeechPartialResults() {
+        };
+        const onSpeechPartialResults = () => {
           // console.log('onSpeechPartialResults: ', e);
-        }
-        function onSpeechVolumeChanged() {
+        };
+        const onSpeechVolumeChanged = () => {
           // console.log('onSpeechVolumeChanged: ', e);
-        }
-        function onSpeechResults(e: SpeechResultsEvent) {
+        };
+        const onSpeechResults = (e: SpeechResultsEvent) => {
           const { value } = e;
           if (value?.length) {
             setResults(value.join(' '));
           }
-        }
+        };
         Voice.onSpeechStart = onSpeechStart;
         Voice.onSpeechEnd = onSpeechEnd;
         Voice.onSpeechError = onSpeechError;
@@ -52,7 +52,7 @@ export const useVoiceRecognition = () => {
     setUpVoiceRecognition();
   }, []);
 
-  const startRecognizing = async () => {
+  const startRecognizing = useCallback(async () => {
     try {
       if (results) {
         setResults('');
@@ -61,7 +61,7 @@ export const useVoiceRecognition = () => {
     } catch (e) {
       console.error('startRecognizing', e);
     }
-  };
+  }, []);
 
   const stopRecognizing = useCallback(async () => {
     try {
