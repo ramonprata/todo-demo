@@ -36,14 +36,20 @@ const LongList: React.FC<LongListProps> = () => {
 
   const filteredItems = useMemo(() => {
     if (data?.length) {
-      return filterCharacters(data as ICharacter[], results);
+      const textToFilter = !!searchText ? searchText : results;
+      return filterCharacters(data as ICharacter[], textToFilter);
     }
     return [];
-  }, [results, data]);
+  }, [results, searchText, data]);
 
   const renderItem = ({ item }: { item: ICharacter }) => (
     <ListItem character={item} />
   );
+
+  const handleStartRecognizing = () => {
+    setSearchText('');
+    startRecognizing();
+  };
 
   return (
     <View style={styles.container}>
@@ -53,7 +59,7 @@ const LongList: React.FC<LongListProps> = () => {
         }}
         value={searchText}
         useVoiceSearch
-        onPressInMic={startRecognizing}
+        onPressInMic={handleStartRecognizing}
         onPressOutMic={stopRecognizing}
       />
       <Text style={styles.textResults}>Words: {results}</Text>
