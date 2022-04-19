@@ -2,10 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Capture voice to convert to text</string>
+
+	<!-- Setup for barcode feature -->
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs access to your Camera to scan barcodes.</string>
+
+	<!-- Setup for voice search feature -->
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>To filter lists by voice instead of typing</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Capture voice to convert to text</string>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

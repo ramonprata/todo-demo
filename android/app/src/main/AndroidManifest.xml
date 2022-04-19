@@ -2,6 +2,10 @@
   package="com.todoapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Setup for barcode feature -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Setup for voice search feature -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
       android:name=".MainApplication"
