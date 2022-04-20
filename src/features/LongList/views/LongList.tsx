@@ -6,14 +6,13 @@ import {
 import { useIsFocused } from '@react-navigation/native';
 import { View, StyleSheet, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { usePromise } from '../../../shared/hooks';
+import { usePromise, useVoiceRecognition } from '../../../shared/hooks';
 import { theme } from '../../../shared/';
 import LongListManager from '../services/LongListManager';
 import ListItem from './ListItem';
 import { ICharacter } from '../../../shared/types/ICharacter';
 import { SearchInput } from '../../../shared/components';
 import { filterCharacters } from '../longListUtils';
-import { useVoiceRecognition } from '../../../shared/hooks';
 
 const Manager = new LongListManager();
 
@@ -56,6 +55,11 @@ const LongList: React.FC<LongListProps> = () => {
     if (loading) {
       return <Text>Loading...</Text>;
     }
+
+    if (done && (!data || data?.length === 0)) {
+      return <Text>Nothing to show...</Text>;
+    }
+
     return (
       <>
         <Text style={styles.textResults}>Words: {results}</Text>
@@ -79,6 +83,7 @@ const LongList: React.FC<LongListProps> = () => {
         onChangeText={t => {
           setSearchText(t);
         }}
+        testID="search-input-charcters"
         value={searchText}
         useVoiceSearch
         onPressInMic={handleStartRecognizing}
