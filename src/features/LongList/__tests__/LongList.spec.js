@@ -1,12 +1,12 @@
+import '../../../shared/utils/mockRNThirdLib';
 import React from 'react';
-import '../../../shared/utils/mockRNThirdLib.js';
 import * as navigationHooks from '@react-navigation/native';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
 import LongList from '../views/LongList';
 import * as voiceRecognitionHook from '../../../shared/hooks/useVoiceRecognition';
 import LongListManagerMock from '../services/LongListManager';
-import { rickMortyResponseMock } from './mocks/rickMortyResponse.mock.js';
+import { rickMortyResponseMock } from './mocks/rickMortyResponse.mock';
 import * as longListUtils from '../longListUtils';
 
 jest.mock('../services/LongListManager');
@@ -33,12 +33,12 @@ jest.mock('../../../shared/hooks/useVoiceRecognition', () => {
 });
 
 describe('Tests on LongList', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+  let LongListManagerInstance;
 
   beforeAll(() => {
     LongListManagerInstance = LongListManagerMock.mock.instances[0];
+
+    LongListManagerInstance.getCharacters = jest.fn();
 
     voiceRecognitionHook.useVoiceRecognition.mockReturnValue({
       startRecognizing: jest.fn(),
@@ -46,23 +46,28 @@ describe('Tests on LongList', () => {
       results: '',
     });
   });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   it('should render loading while fetching data, and than the list of characters ', async () => {
     LongListManagerInstance.getCharacters.mockResolvedValueOnce(
       rickMortyResponseMock.results,
     );
+    // sobrescreve o mock glogal pra retornar a lista
+    longListUtils.filterCharacters.mockImplementation(data => data);
 
     navigationHooks.useIsFocused.mockReturnValueOnce(true);
 
-    const screeen = render(<LongList />);
+    const screen = render(<LongList />);
 
-    expect(screeen.queryByText(/Loading/)).not.toBeNull();
+    expect(screen.queryByText(/Loading/)).not.toBeNull();
 
     await waitFor(() =>
       expect(LongListManagerInstance.getCharacters).toHaveBeenCalled(),
     );
-
-    expect(screeen.queryByText(/Rick/)).not.toBeNull();
-    expect(screeen.queryByText(/Pizza-person/)).not.toBeNull();
+    expect(screen.queryByText(/Rick/)).not.toBeNull();
+    expect(screen.queryByText(/Pizza-person/)).not.toBeNull();
   });
   it('should render loading and not call manager to fetch data ', async () => {
     LongListManagerInstance.getCharacters.mockResolvedValueOnce(
@@ -71,14 +76,14 @@ describe('Tests on LongList', () => {
 
     navigationHooks.useIsFocused.mockReturnValueOnce(false);
 
-    const screeen = render(<LongList />);
+    const screen = render(<LongList />);
 
-    expect(screeen.queryByText(/Loading/)).not.toBeNull();
+    expect(screen.queryByText(/Loading/)).not.toBeNull();
 
     await waitFor(() =>
       expect(LongListManagerInstance.getCharacters).not.toHaveBeenCalled(),
     );
-    expect(screeen.queryByText(/Nothing to show/)).not.toBeNull();
+    expect(screen.queryByText(/Nothing to show/)).not.toBeNull();
   });
 
   describe('Testing search list', () => {
@@ -91,13 +96,13 @@ describe('Tests on LongList', () => {
     });
 
     it('should render search field', async () => {
-      const screeen = render(<LongList />);
+      const screen = render(<LongList />);
 
       await waitFor(() =>
         expect(LongListManagerInstance.getCharacters).not.toHaveBeenCalled(),
       );
 
-      const searchComponent = screeen.queryByTestId('search-input-charcters');
+      const searchComponent = screen.queryByTestId('search-input-charcters');
       expect(searchComponent).not.toBeNull();
       expect(searchComponent.props.placeholder).toMatch('Search');
     });
@@ -109,13 +114,13 @@ describe('Tests on LongList', () => {
 
       navigationHooks.useIsFocused.mockReturnValueOnce(true);
 
-      const screeen = render(<LongList />);
+      const screen = render(<LongList />);
 
       await waitFor(() =>
         expect(LongListManagerInstance.getCharacters).toHaveBeenCalled(),
       );
 
-      const searchComponent = screeen.queryByTestId('search-input-charcters');
+      const searchComponent = screen.queryByTestId('search-input-charcters');
       expect(searchComponent).not.toBeNull();
       expect(searchComponent.props.placeholder).toMatch('Search');
       await fireEvent.changeText(searchComponent, 'Rick');

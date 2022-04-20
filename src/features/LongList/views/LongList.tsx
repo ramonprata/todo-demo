@@ -6,7 +6,8 @@ import {
 import { useIsFocused } from '@react-navigation/native';
 import { View, StyleSheet, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { usePromise, useVoiceRecognition } from '../../../shared/hooks';
+import { usePromise } from '../../../shared/hooks/usePromise';
+import { useVoiceRecognition } from '../../../shared/hooks/useVoiceRecognition';
 import { theme } from '../../../shared/';
 import LongListManager from '../services/LongListManager';
 import ListItem from './ListItem';
@@ -64,7 +65,7 @@ const LongList: React.FC<LongListProps> = () => {
       <>
         <Text style={styles.textResults}>Words: {results}</Text>
         <FlatList
-          data={filteredItems}
+          data={filteredItems} // data filtrado
           renderItem={renderItem}
           keyExtractor={item => item.image}
           initialNumToRender={12}

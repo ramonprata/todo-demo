@@ -8,10 +8,16 @@ jest.mock('../../../shared/utils/generalUtils', () => ({
 
 describe('Tests on longListUtils', () => {
   describe('Testing extractResponseResults', () => {
-    it('should return results array from response', () => {
+    it('should return an array of results characters', () => {
+      // prepara o cenario
+
+      // executa o que deve ser testado
       const res = extractResponseResults(rickMortyResponseMock);
+
+      // faz aferições
       expect(res).toHaveLength(rickMortyResponseMock.results.length);
     });
+
     it('should return concatenated results when passed an array of responses', () => {
       const res = extractResponseResults([
         rickMortyResponseMock,
@@ -21,27 +27,23 @@ describe('Tests on longListUtils', () => {
     });
   });
 
-  describe('Testing filterCharacters ', () => {
-    afterEach(() => {
-      jest.clearAllMocks();
-    });
+  describe('Testin filterCharacters ', () => {
     const characterOne = rickMortyResponseMock.results[0];
     const characterTwo = rickMortyResponseMock.results[1];
     const charactersToFilter = [characterOne, characterTwo];
-    it(`should call objectMatchText twice and return two characters searching by species: Human`, () => {
-      objectMatchText.mockReturnValue(true);
-      const res = filterCharacters(charactersToFilter, 'Human');
-      expect(objectMatchText).toHaveBeenCalledTimes(2);
-      expect(res).toHaveLength(2);
-    });
-    it(`should call objectMatchText twice and return only one character by name: Rick`, () => {
-      objectMatchText.mockImplementation((item, searchingText) => {
-        return searchingText === item.name;
-      });
 
-      const res = filterCharacters(charactersToFilter, characterOne.name);
+    it('should call objectMatchText twice and retunr two characters searching by species: Human', () => {
+      // prepara o cenario
+      objectMatchText.mockReturnValue(true);
+
+      // executa o que deve ser testado
+      const res = filterCharacters(charactersToFilter, 'Human');
+
+      // faz aferições
       expect(objectMatchText).toHaveBeenCalledTimes(2);
-      expect(res).toHaveLength(1);
+      expect(objectMatchText.mock.calls[0][0]).toEqual(characterOne);
+      expect(objectMatchText.mock.calls[0][1]).toEqual('Human');
+      expect(res).toHaveLength(2);
     });
   });
 });
