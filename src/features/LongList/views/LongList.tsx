@@ -6,7 +6,8 @@ import {
 import { useIsFocused } from '@react-navigation/native';
 import { View, StyleSheet, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { theme, usePromise } from '../../../shared';
+import { usePromise } from '../../../shared/hooks';
+import { theme } from '../../../shared/';
 import LongListManager from '../services/LongListManager';
 import ListItem from './ListItem';
 import { ICharacter } from '../../../shared/types/ICharacter';
@@ -30,7 +31,7 @@ const LongList: React.FC<LongListProps> = () => {
     return null;
   }, [isFocused]);
 
-  const { data } = usePromise(loadChacters);
+  const { data, loading, done } = usePromise(loadChacters);
 
   const { startRecognizing, stopRecognizing, results } = useVoiceRecognition();
 
@@ -51,6 +52,27 @@ const LongList: React.FC<LongListProps> = () => {
     startRecognizing();
   };
 
+  const renderContent = () => {
+    if (loading) {
+      return <Text>Loading...</Text>;
+    }
+    return (
+      <>
+        <Text style={styles.textResults}>Words: {results}</Text>
+        <FlatList
+          data={filteredItems}
+          renderItem={renderItem}
+          keyExtractor={item => item.image}
+          initialNumToRender={12}
+          getItemLayout={(_, index) => ({
+            length: hp('15%'),
+            offset: hp('15%') * index,
+            index,
+          })}
+        />
+      </>
+    );
+  };
   return (
     <View style={styles.container}>
       <SearchInput
@@ -62,18 +84,7 @@ const LongList: React.FC<LongListProps> = () => {
         onPressInMic={handleStartRecognizing}
         onPressOutMic={stopRecognizing}
       />
-      <Text style={styles.textResults}>Words: {results}</Text>
-      <FlatList
-        data={filteredItems}
-        renderItem={renderItem}
-        keyExtractor={item => item.image}
-        initialNumToRender={12}
-        getItemLayout={(_, index) => ({
-          length: hp('15%'),
-          offset: hp('15%') * index,
-          index,
-        })}
-      />
+      {renderContent()}
     </View>
   );
 };

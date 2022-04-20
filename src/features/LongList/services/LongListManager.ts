@@ -10,7 +10,7 @@ class LongListManager {
 
   handleError(error: unknown) {
     // hanling error code
-    console.log('error :>> ', error);
+    // console.log('error :>> ', error);
   }
 
   async getCharacters(page?: number) {

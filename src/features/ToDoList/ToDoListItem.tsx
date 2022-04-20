@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { Card } from '../../shared/components';
-import { DeviceFeatures } from '../../shared';
 import { ITask } from '../../shared/types';
 
 interface ToDoListItemProps {

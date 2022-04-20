@@ -15,7 +15,8 @@ import {
 } from '../../../shared/types';
 import { Card } from '../../../shared/components';
 import AddBoardButton from './AddColumnButton';
-import { DeviceFeatures, usePromise } from '../../../shared';
+import { usePromise } from '../../../shared/hooks';
+import { DeviceFeatures } from '../../../shared/base';
 import ToDoList from '../../ToDoList/ToDoList';
 import ToDoBoardManager from '../services/ToDoBoardManager';
 

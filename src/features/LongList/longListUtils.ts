@@ -1,6 +1,5 @@
-import { objectMatchText } from '../../shared';
-import { IRickMortyResponse } from '../../shared/types/apiResponses/IRickMortyResponse';
-import { ICharacter } from '../../shared/types/ICharacter';
+import { IRickMortyResponse, ICharacter } from '../../shared/types';
+import { objectMatchText } from '../../shared/utils/generalUtils';
 
 export const filterCharacters = (items: ICharacter[], searchText: string) => {
   if (!searchText) {
