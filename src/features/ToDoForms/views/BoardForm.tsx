@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Alert, StyleSheet } from 'react-native';
-import { DEFAULT_ERROR_MESSAGE } from '../../../shared';
+import { DEFAULT_ERROR_MESSAGE } from '../../../shared/constants';
 import { ERouteNames, TUseNavigation } from '../../../shared/types';
 import ToDoBoardManager from '../../ToDoBoards/services/ToDoBoardManager';
 import { mountNewBoard } from '../todoFormsUtils';

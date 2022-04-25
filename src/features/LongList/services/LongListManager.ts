@@ -1,3 +1,5 @@
+import { IRickMortyResponse } from '../../../shared/types/apiResponses/IRickMortyResponse';
+import { extractResponseResults } from '../longListUtils';
 import LongListRepository from './LongListRepository';
 
 class LongListManager {
@@ -5,12 +7,25 @@ class LongListManager {
   constructor() {
     this.repo = new LongListRepository();
   }
-  async getCharacters() {
+
+  handleError(error: unknown) {
+    // hanling error code
+    // console.log('error :>> ', error);
+  }
+
+  async getCharacters(page?: number) {
     try {
-      const response = await this.repo.fetchCharacters();
-      return response;
+      let response: IRickMortyResponse | IRickMortyResponse[];
+
+      if (page) {
+        response = await this.repo.fetchCharactersPage(page);
+      } else {
+        response = await this.repo.fetchAllCharacters();
+      }
+
+      return extractResponseResults(response);
     } catch (error) {
-      console.log('error:', error);
+      this.handleError(error);
     }
   }
 }

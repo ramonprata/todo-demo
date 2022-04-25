@@ -6,13 +6,14 @@ import {
 import { useIsFocused } from '@react-navigation/native';
 import { View, StyleSheet, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { theme, usePromise } from '../../../shared';
+import { usePromise } from '../../../shared/hooks/usePromise';
+import { useVoiceRecognition } from '../../../shared/hooks/useVoiceRecognition';
+import { theme } from '../../../shared/';
 import LongListManager from '../services/LongListManager';
 import ListItem from './ListItem';
 import { ICharacter } from '../../../shared/types/ICharacter';
 import { SearchInput } from '../../../shared/components';
 import { filterCharacters } from '../longListUtils';
-import { useVoiceRecognition } from '../../../shared/hooks';
 
 const Manager = new LongListManager();
 
@@ -30,7 +31,7 @@ const LongList: React.FC<LongListProps> = () => {
     return null;
   }, [isFocused]);
 
-  const { data } = usePromise(loadChacters);
+  const { data, loading, done } = usePromise(loadChacters);
 
   const { startRecognizing, stopRecognizing, results } = useVoiceRecognition();
 
@@ -51,29 +52,45 @@ const LongList: React.FC<LongListProps> = () => {
     startRecognizing();
   };
 
+  const renderContent = () => {
+    if (loading) {
+      return <Text>Loading...</Text>;
+    }
+
+    if (done && (!data || data?.length === 0)) {
+      return <Text>Nothing to show...</Text>;
+    }
+
+    return (
+      <>
+        <Text style={styles.textResults}>Words: {results}</Text>
+        <FlatList
+          data={filteredItems} // data filtrado
+          renderItem={renderItem}
+          keyExtractor={item => item.image}
+          initialNumToRender={12}
+          getItemLayout={(_, index) => ({
+            length: hp('15%'),
+            offset: hp('15%') * index,
+            index,
+          })}
+        />
+      </>
+    );
+  };
   return (
     <View style={styles.container}>
       <SearchInput
         onChangeText={t => {
           setSearchText(t);
         }}
+        testID="search-input-charcters"
         value={searchText}
         useVoiceSearch
         onPressInMic={handleStartRecognizing}
         onPressOutMic={stopRecognizing}
       />
-      <Text style={styles.textResults}>Words: {results}</Text>
-      <FlatList
-        data={filteredItems}
-        renderItem={renderItem}
-        keyExtractor={item => item.image}
-        initialNumToRender={12}
-        getItemLayout={(_, index) => ({
-          length: hp('15%'),
-          offset: hp('15%') * index,
-          index,
-        })}
-      />
+      {renderContent()}
     </View>
   );
 };
