@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
-import { Text, View, StyleSheet, Button, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { theme, usePromise } from '../../../shared';
+import { usePromise } from '../../../shared/hooks';
+import { theme } from '../../../shared';
 import { ERouteNames, IBoard, TUseNavigation } from '../../../shared/types';
 import ToDoBoardItem from './ToDoBoardItem';
 import { FloatButton } from '../../../shared/components';

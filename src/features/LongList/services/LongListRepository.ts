@@ -1,7 +1,7 @@
 import { IRickMortyResponse } from '../../../shared/types/apiResponses/IRickMortyResponse';
 
 class LongListRepository {
-  async fetchCharacters(): Promise<IRickMortyResponse['results']> {
+  async fetchAllCharacters(): Promise<IRickMortyResponse[]> {
     const promises = [];
     for (let index = 1; index < 43; index++) {
       const URL = `https://rickandmortyapi.com/api/character/?page=${index}`;
@@ -9,9 +9,13 @@ class LongListRepository {
     }
     const responses = await Promise.all(promises);
     const responsesData = await Promise.all(responses.map(r => r.json()));
-    return responsesData.reduce((prev, current) => {
-      return prev.concat(current.results);
-    }, []);
+    return responsesData as IRickMortyResponse[];
+  }
+
+  async fetchCharactersPage(page: number): Promise<IRickMortyResponse> {
+    const URL = `https://rickandmortyapi.com/api/character/?page=${page}`;
+    const response = await fetch(URL);
+    return response.json() as Promise<IRickMortyResponse>;
   }
 }
 
