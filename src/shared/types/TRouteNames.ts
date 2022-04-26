@@ -1,6 +1,7 @@
 export enum ERouteNames {
   SIDE_MENU = 'SideMenu',
   LONG_LIST = 'LongList',
+  LANGUAGES = 'Languages',
   TO_DO_STACK = 'ToDoStack',
   TO_DO_BOARDS = 'ToDoBoards',
   TODO_BOARD_DETAILS = 'ToDoBoardDetails',
@@ -12,6 +13,7 @@ export enum ERouteNames {
 export type TRouteNames =
   | ERouteNames.SIDE_MENU
   | ERouteNames.LONG_LIST
+  | ERouteNames.LANGUAGES
   | ERouteNames.TO_DO_STACK
   | ERouteNames.TO_DO_BOARDS
   | ERouteNames.TODO_BOARD_DETAILS

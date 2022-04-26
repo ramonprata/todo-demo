@@ -4,7 +4,9 @@ import {
   Rationale,
   Permission,
   Platform,
+  NativeModules,
 } from 'react-native';
+import { EnumLanguages } from '../locales/EnumLanguages';
 
 export class DeviceFeatures {
   static get width() {
@@ -45,5 +47,20 @@ export class DeviceFeatures {
       return permissionGranted;
     }
     return false;
+  }
+
+  static getLanguageByDevice() {
+    const normalizeTranslate = {
+      en_US: 'en_US',
+      pt_BR: 'pt_BR',
+      en: 'en_US',
+      pt_US: 'pt_BR',
+    };
+
+    const language: EnumLanguages = DeviceFeatures.isIOS
+      ? NativeModules.SettingsManager.settings.AppleLocale // get languange on iOS
+      : NativeModules.I18nManager.localeIdentifier; // get languange on Android
+
+    return normalizeTranslate[language];
   }
 }

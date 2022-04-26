@@ -31,6 +31,10 @@ const SideMenu: React.FC<SideMenuProps> = ({ closeDrawer }) => {
     navigation.navigate(ERouteNames.LONG_LIST);
   };
 
+  const goToLanguages = () => {
+    navigation.navigate(ERouteNames.LANGUAGES);
+  };
+
   return (
     <View>
       <View style={styles.menuHeader}>
@@ -52,6 +56,11 @@ const SideMenu: React.FC<SideMenuProps> = ({ closeDrawer }) => {
       <Pressable onPress={goToLongList}>
         <View style={styles.itemContainer}>
           <Text>POC - Long List</Text>
+        </View>
+      </Pressable>
+      <Pressable onPress={goToLanguages}>
+        <View style={styles.itemContainer}>
+          <Text>POC - i18n</Text>
         </View>
       </Pressable>
     </View>
